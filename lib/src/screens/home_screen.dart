@@ -110,7 +110,7 @@ class _HomeApiSummary {
     socialSubtitle: 'SMM services',
     premiumSubtitle: 'Paid plans',
     gameSubtitle: 'Items & topup',
-    recentOrders: _RecentOrdersPanel.fallbackOrders,
+    recentOrders: <OrderItem>[],
   );
 
   static Future<_HomeApiSummary> load() async {
@@ -143,9 +143,7 @@ class _HomeApiSummary {
         'Paid plans',
       ),
       gameSubtitle: _countSubtitle(games.length, 'items', 'Items & topup'),
-      recentOrders: orders.isEmpty
-          ? _RecentOrdersPanel.fallbackOrders
-          : orders.take(5).toList(),
+      recentOrders: orders.take(5).toList(),
     );
   }
 

@@ -738,62 +738,9 @@ class _PopularServiceCard extends StatelessWidget {
 }
 
 class _RecentOrdersPanel extends StatelessWidget {
-  const _RecentOrdersPanel({this.orders = fallbackOrders});
+  const _RecentOrdersPanel({this.orders = const <OrderItem>[]});
 
   final List<OrderItem> orders;
-
-  static const fallbackOrders = [
-    OrderItem(
-      icon: Icons.camera_alt,
-      title: 'Instagram Followers [HQ]',
-      subtitle: '1000 Followers',
-      id: '#58241',
-      time: '2m ago',
-      price: '\$2.45',
-      status: 'Completed',
-      statusColor: Color(0xFF22C55E),
-    ),
-    OrderItem(
-      icon: Icons.music_note,
-      title: 'TikTok Likes [Real]',
-      subtitle: '500 Likes',
-      id: '#58240',
-      time: '5m ago',
-      price: '\$1.20',
-      status: 'Processing',
-      statusColor: Color(0xFFF59E0B),
-    ),
-    OrderItem(
-      icon: Icons.play_arrow_rounded,
-      title: 'YouTube Subscribers [HQ]',
-      subtitle: '200 Subscribers',
-      id: '#58239',
-      time: '12m ago',
-      price: '\$3.50',
-      status: 'Pending',
-      statusColor: Color(0xFF3B82F6),
-    ),
-    OrderItem(
-      icon: Icons.facebook,
-      title: 'Facebook Page Likes [HQ]',
-      subtitle: '1000 Likes',
-      id: '#58238',
-      time: '20m ago',
-      price: '\$2.10',
-      status: 'Completed',
-      statusColor: Color(0xFF22C55E),
-    ),
-    OrderItem(
-      icon: Icons.camera_alt,
-      title: 'Instagram Likes [Real]',
-      subtitle: '300 Likes',
-      id: '#58237',
-      time: '29m ago',
-      price: '\$0.95',
-      status: 'Completed',
-      statusColor: Color(0xFF22C55E),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -801,6 +748,24 @@ class _RecentOrdersPanel extends StatelessWidget {
       decoration: _panelDecoration(),
       child: Column(
         children: [
+          if (orders.isEmpty)
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
+              child: Column(
+                children: [
+                  Icon(Icons.receipt_long_outlined, color: Color(0xFF7F8898)),
+                  SizedBox(height: 8),
+                  Text(
+                    'No recent orders',
+                    style: TextStyle(
+                      color: Color(0xFF7F8898),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           for (var index = 0; index < orders.length; index++) ...[
             _ReferenceOrderRow(
               item: orders[index],
