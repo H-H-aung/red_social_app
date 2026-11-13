@@ -71,7 +71,7 @@ class ApiClient {
   }
 
   Map<String, String> _headers({String? contentType}) {
-    final headers = <String, String>{};
+    final headers = <String, String>{'Accept': 'application/json'};
     final token = UserSession.user?.token ?? '';
     if (token.isNotEmpty) {
       headers['Authorization'] = 'Bearer $token';
@@ -86,7 +86,7 @@ class ApiClient {
     Future<http.Response> Function() request,
   ) async {
     try {
-      final response = await request().timeout(const Duration(seconds: 25));
+      final response = await request().timeout(const Duration(seconds: 60));
       final body = response.body.trim();
       if (body.isEmpty) {
         return ApiResult(

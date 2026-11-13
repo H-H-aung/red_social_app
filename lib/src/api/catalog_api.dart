@@ -78,11 +78,29 @@ class CatalogApi {
     String key,
   ) {
     final data = response?['data'];
-    if (data is List) return data.whereType<Map<String, dynamic>>().toList();
-    if (data is! Map<String, dynamic>) return const [];
+    if (data is List) return _flattenItems(data, key);
+    if (data is! Map) return const [];
     final raw = data[key];
     if (raw is! List) return const [];
-    return raw.whereType<Map<String, dynamic>>().toList();
+    return _flattenItems(raw, key);
+  }
+
+  /// The catalog API groups products by category, for example:
+  /// `data.services: [{category: ..., services: [...]}]`.
+  /// Convert those groups into the flat list expected by the UI.
+  List<Map<String, dynamic>> _flattenItems(List rawItems, String childKey) {
+    final items = <Map<String, dynamic>>[];
+    for (final rawItem in rawItems) {
+      if (rawItem is! Map) continue;
+      final item = Map<String, dynamic>.from(rawItem);
+      final children = item[childKey];
+      if (children is List) {
+        items.addAll(_flattenItems(children, childKey));
+      } else {
+        items.add(item);
+      }
+    }
+    return items;
   }
 }
 

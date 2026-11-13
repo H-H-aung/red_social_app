@@ -74,7 +74,7 @@ class RedSiteSocialApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

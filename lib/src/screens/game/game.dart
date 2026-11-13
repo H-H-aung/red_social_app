@@ -118,34 +118,6 @@ class _GameItemTile extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          if (item.label == 'MLBB') {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const MobileLegendsPage()),
-            );
-            return;
-          }
-
-          if (item.label == 'PUBG UC') {
-            Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (_) => const PubgPage()));
-            return;
-          }
-
-          if (item.label == 'Free Fire') {
-            Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (_) => const FreeFirePage()));
-            return;
-          }
-
-          if (item.label == 'Honor of Kings') {
-            Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (_) => const HonorOfKingsPage()));
-            return;
-          }
-
           Navigator.of(context).push(
             MaterialPageRoute(builder: (_) => GameOrderFormPage(game: item)),
           );
